@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+    <input type="text" id="userInput" class="userInput" placeholder="Enter city name">
+    <button id="weatherButton">Get Weather</button>
+    <div id="weather-wrapper">
+        <p class="data" id="temperature">   </p>
+        <p  class="data" id="description"></p>
+    </div></div>
+
+    <script>
+        var weather_button = document.getElementById("weatherButton");
+
+        var cities = [
+            {"city": "New York", "latitude": 40.7128, "longitude": -74.0060},
+            {"city": "Los Angeles", "latitude": 34.0522, "longitude": -118.2437},
+            {"city": "Chicago", "latitude": 41.8781, "longitude": -87.6298},
+            {"city": "Houston", "latitude": 29.7604, "longitude": -95.3698},
+            {"city": "Miami", "latitude": 25.7617, "longitude": -80.1918},
+            {"city": "London", "latitude": 51.5074, "longitude": -0.1278},
+            {"city": "Paris", "latitude": 48.8566, "longitude": 2.3522},
+            {"city": "Tokyo", "latitude": 35.6895, "longitude": 139.6917},
+            {"city": "Sydney", "latitude": -33.8688, "longitude": 151.2093},
+            {"city": "Cape Town", "latitude": -33.9249, "longitude": 18.4241}
+        ];
+
+        weather_button.addEventListener("click", function() {
+            var input = document.getElementById("userInput").value;
+            var city = cities.find(city => city.city.toLowerCase() === input.toLowerCase());
+            
+            if (city) {
+                fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${city.latitude}&lon=${city.longitude}&appid=c153479685c47f1b34a83591f3b1acbe`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        document.getElementById("temperature").innerText = "Temperature :"+ (data.main.temp - 273.15).toFixed(2) + "°C";
+                        document.getElementById("description").innerText = data.weather[0].description;
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                        document.getElementById("temperature").innerText = "Could not fetch weather data.";
+                        document.getElementById("description").innerText = "";
+                    });
+            } else {
+                document.getElementById("temperature").innerText = "City not found.";
+                document.getElementById("description").innerText = "";
+            }
+        });
+    </script>
+</body>
+</html>

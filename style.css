@@ -1,0 +1,33 @@
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.userInput{
+    margin-top: 50px;
+    margin: 20px;
+    width: 30%;
+    border: 1px solid black;
+    border-radius: 30px;
+  
+    padding : 10px
+}
+body{
+    /* background-size:cover; */
+    background-position: center;
+    background-size: cover ;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background: url(./assets/bg.jpg);
+}
+.weather-wrapper {
+ 
+  border: 1px solid black;
+
+}
+.data {
+    color: white;
+    font-size: 40px;
+}
